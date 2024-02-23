@@ -13,7 +13,7 @@ on:
 # Groups together all the jobs that run in the `learn-github-actions` workflow.
 jobs:
     # Defines a job named `check-bats-version`. The child keys will define properties of the job.
-    check-bats-version:
+    run_tests:
         # Configures the job to run on the latest version of an Ubuntu Linux runner. This means that the job will execute on a fresh virtual machine hosted by GitHub. For syntax examples using other runners, see "[AUTOTITLE](/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on)"
         runs-on: ubuntu-latest
 
@@ -23,8 +23,12 @@ jobs:
             - uses: actions/checkout@v4
 
             - run: |
-                  ls -al
+                pwd
+                ls -al
+                pip install virtualenv
+                virtualenv venv
+                source venv/bin/activate && pip install -r requirements.txt && python3 new_unit_test.py
 
             # Finally, you'll run the `bats` command with a parameter that outputs the software version.
             - run: |
-                  echo "hello world"
+                echo "Running the tests successfully"
